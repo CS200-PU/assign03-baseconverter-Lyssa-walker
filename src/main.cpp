@@ -112,7 +112,7 @@ string binaryToDecimal (const string& strNumber){
 
 /****************************************************************************
   Function: decimalToBinary
-  Description: string representing a decimal number
+  Description: turning a decimal number into a binary
   Parameters: strNumber - string representing a decimal
   
   Returned: String
@@ -137,6 +137,20 @@ string decimalToBinary (const string& strNumber){
     return binaryResult;
 }
 
+/****************************************************************************
+  Function: decimalToHex
+  Description: turning a decimal number into a hexidecimal
+  Parameters: strNumber - string representing a decimal
+  
+  Returned: String
+****************************************************************************/
+string decimalToHex(const string& strNumber){
+ string hexValue;
+
+
+
+  return hexValue;
+}
 
 int main () {
 
