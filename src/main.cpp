@@ -50,9 +50,9 @@ char getBase (const string& strNumber){
     }
     
     
-    if (strNumber.substr(0, 2) == "0b" || strNumber.substr(0, 2) == "0B") {
-        return 'B';  
-    }
+  if (strNumber.substr(0, 2) == "0b" || strNumber.substr(0, 2) == "0B") {
+    return 'B';  
+  }
 
     
     return 'D';  
@@ -84,7 +84,9 @@ string getNumber (const string& prompt){
   Returned: none
 ****************************************************************************/
 void printTitle(const string& myTitle){
-  cout << myTitle;
+  cout << "*******************************\n" 
+       << "*****" << myTitle << "*****\n"
+       << "*******************************\n";
 }
 
 /****************************************************************************
@@ -122,16 +124,16 @@ string decimalToBinary (const string& strNumber){
   std::stringstream(strNumber) >> decimalNumber;
   string binaryResult = "";
     
-    // Special case for decimal 0
+   
     if (decimalNumber == 0) {
         return "0";
     }    
 
-    // Convert decimal number to binary
+   
     while (decimalNumber > 0) {
-        int remainder = decimalNumber % 2;  // Get the remainder when divided by 2
-        binaryResult = std::to_string(remainder) + binaryResult;  // Build the binary string from the right
-        decimalNumber /= 2;  // Divide the decimal number by 2
+        int remainder = decimalNumber % 2;  
+        binaryResult = std::to_string(remainder) + binaryResult;  
+        decimalNumber /= 2;  
     }
 
     return binaryResult;
@@ -145,16 +147,108 @@ string decimalToBinary (const string& strNumber){
   Returned: String
 ****************************************************************************/
 string decimalToHex(const string& strNumber){
- string hexValue;
+    int decimalNumber;
+    std::stringstream(strNumber) >> decimalNumber;
+    std::stringstream hexValue;
 
+    hexValue << "0x" << std::hex << std::uppercase << decimalNumber;
 
-
-  return hexValue;
+    return hexValue.str();
 }
 
+/****************************************************************************
+  Function: hexToDecimal 
+  Description: turning a hexadecimal number into a decimal
+  Parameters: strNumber - string representing a hexadecimal being passed in
+  
+  Returned: String
+****************************************************************************/
+string hexToDecimal (const string& strNumber){
+    int decimalVal;
+    string hexNumber = strNumber;
+
+    if (hexNumber.substr(0, 2) == "0x" || hexNumber.substr(0, 2) == "0X") {
+        hexNumber = hexNumber.substr(2); 
+    }
+
+    
+    std::stringstream hexVal;
+    hexVal << std::hex << hexNumber; 
+    hexVal >> decimalVal;         
+
+    return to_string(decimalVal);  
+}
+
+/****************************************************************************
+  Function: hexToBinary
+  Description: turning a hexadecimal number into a binary number
+  Parameters: strNumber - string representing a hexadecimal being passed in
+  
+  Returned: String
+****************************************************************************/
+string hexToBinary (const string& strNumber){
+  string decimalNum;
+  string binaryNum;
+
+
+ decimalNum = hexToDecimal(strNumber);
+
+ binaryNum = decimalToBinary(decimalNum);
+
+ return binaryNum;
+}
+
+
+/****************************************************************************
+  Function: binaryToHex 
+  Description: turning a binary number into a hexidecimal
+  Parameters: strNumber - string representing a binary number being passed in
+  
+  Returned: String
+****************************************************************************/
+string binaryToHex(const string& strNumber){
+  string decimalNum;
+std::stringstream hexNum;
+  decimalNum = binaryToDecimal(strNumber);
+  hexNum << decimalToHex(strNumber);
+
+  return hexNum.str();
+}
+
+
+
 int main () {
+  string userAnswer;
+  bool proceed = true;
+  char hexChar = 'H';
+  char binaryChar = 'B';
+  char decimalChar = 'D';
+  char quit = 'q';
+  
 
+ printTitle("HEX-DECIMAL CONVERTER");
 
+ while(proceed){
+
+  cout << "Enter your string to convert (q to quit): ";
+  cin >> userAnswer;
+
+  if (userAnswer.at(0) == quit){
+      proceed = false;
+  }
+  else if (getBase(userAnswer) == hexChar){
+    cout << "The decimal conversion is: " << hexToDecimal(userAnswer) << "\n"; 
+    cout << "The binary conversion is: " << "0b" << hexToBinary(userAnswer) << "\n\n";   
+  }
+  else if (getBase(userAnswer) == decimalChar){
+    cout << "The binary conversion is: " << "0b" << decimalToBinary(userAnswer) << "\n";
+    cout << "The hexadecimal conversion is: " << decimalToHex(userAnswer) << "\n\n";
+  }
+  else if (getBase(userAnswer) == binaryChar){
+    cout << "The decimal conversion is: " << binaryToDecimal(userAnswer) << "\n";
+    cout << "The hexadecimal is: " << binaryToHex(userAnswer) << "\n\n";
+  }
+ }
 
 
   
