@@ -100,10 +100,11 @@ void printTitle(const string& myTitle){
 string binaryToDecimal (const string& strNumber){
   int decimalValue = 0;
   string binaryNumber = strNumber;
+  binaryNumber = binaryNumber.substr(2);
   int power = binaryNumber.length() - 1;
 
 
-   binaryNumber = binaryNumber.substr(2);
+   
       
 
     for (char digit : binaryNumber){
@@ -210,19 +211,74 @@ string decimalToHex(const string& strNumber){
 string hexToDecimal (const string& strNumber){
     int decimalVal = 0;
     string hexNumber = strNumber;
+    hexNumber = hexNumber.substr(2);
     int power = hexNumber.length() - 1;
 
+  if (hexNumber.length() == 1){
     for (char digit : hexNumber){
+      if (digit == '0'){
+        decimalVal = 0;
 
-      if (digit == '0' || digit == '1' || digit == '2' || digit == '3' || digit == '4' || digit == '5' || digit == '6' || digit == '7' || digit == '8' || digit == '9'){
-        decimalVal +=  pow(16,power);
-        
+        return  to_string(decimalVal);    
       }
-      else {
-        decimalVal += pow(hexCharToInt(digit),power);
+      else if (digit == '1'){
+        decimalVal = 1;
+
+        return  to_string(decimalVal);    
       }
-      power -= 1;
+      else if (digit == '2'){
+        decimalVal = 2;
+
+        return  to_string(decimalVal);    
+      }
+      else if (digit == '3'){
+        decimalVal = 3;
+
+        return  to_string(decimalVal);    
+      }
+      else if (digit == '4'){
+        decimalVal = 4;
+
+        return  to_string(decimalVal);    
+      }
+      else if (digit == '5'){
+        decimalVal = 5;
+
+        return  to_string(decimalVal);    
+      }
+      else if (digit == '6'){
+        decimalVal = 6;
+
+        return  to_string(decimalVal);    
+      }
+      else if (digit == '7'){
+        decimalVal = 7;
+
+        return  to_string(decimalVal);    
+      }
+      else if (digit == '8'){
+        decimalVal = 8;
+
+        return  to_string(decimalVal);    
+      }
+      else if (digit == '9'){
+        decimalVal = 9;
+
+        return  to_string(decimalVal);    
+      }
     }
+  }
+       
+
+     
+        for (char digit : hexNumber){
+            
+          decimalVal += hexCharToInt(digit) * pow(16,power);
+            
+          power -= 1;
+        }
+      
+    
          
 
     return to_string(decimalVal);
@@ -255,13 +311,13 @@ string hexToBinary (const string& strNumber){
   
   Returned: String
 ****************************************************************************/
-string binaryToHex(const string& strNumber){
+ string binaryToHex(const string& strNumber){
   string decimalNum;
-std::stringstream hexNum;
+ string hexNum;
   decimalNum = binaryToDecimal(strNumber);
-  hexNum << decimalToHex(strNumber);
+  hexNum = decimalToHex(decimalNum);
 
-  return hexNum.str();
+  return hexNum;
 }
 
 
