@@ -103,8 +103,8 @@ string binaryToDecimal (const string& strNumber){
    binaryNumber = binaryNumber.substr(2);
 
    for (size_t i = 0; i < binaryNumber.length(); ++i) {
-        char bit = binaryNumber[i];
-        decimalValue = decimalValue * 2 + (bit - '0');
+        
+        
     }
 
     
@@ -121,21 +121,18 @@ string binaryToDecimal (const string& strNumber){
 ****************************************************************************/
 string decimalToBinary (const string& strNumber){
   int decimalNumber;
-  std::stringstream(strNumber) >> decimalNumber;
+  decimalNumber = std::stoi(strNumber);
   string binaryResult = "";
+  int remainder;
     
-   
-    if (decimalNumber == 0) {
-        return "0";
-    }    
+   while (decimalNumber != 0){
+      decimalNumber = decimalNumber / 2;
 
-   
-    while (decimalNumber > 0) {
-        int remainder = decimalNumber % 2;  
-        binaryResult = std::to_string(remainder) + binaryResult;  
-        decimalNumber /= 2;  
-    }
+      remainder = decimalNumber % 2;
 
+      binaryResult += remainder;
+
+   }
     return binaryResult;
 }
 
